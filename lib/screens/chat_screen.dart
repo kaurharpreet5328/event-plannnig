@@ -1,3 +1,5 @@
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:3743235878.
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:4079315229.
 
 import 'package:flutter/material.dart';
 
@@ -45,6 +47,22 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text('Options', style: TextStyle(color: Colors.white, fontSize: 24,),),
+            ),
+            ListTile(title: Text('Nearby Events'), onTap: () {Navigator.pop(context);},),
+            ListTile(title: Text('Event History'), onTap: () {Navigator.pop(context);},),
+          ],
+        ),
+      ),
+
       appBar: AppBar(
         title: Text("Chat Screen"),
       ),

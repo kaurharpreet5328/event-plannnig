@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
+      appBar: null,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -63,8 +63,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 // Handle login logic here
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) =>  ChatScreen()),
+                  MaterialPageRoute(builder: (context) {
+                    return ChatScreen();
+                  }),
                   (Route<dynamic> route) => false,
                 );
               },
