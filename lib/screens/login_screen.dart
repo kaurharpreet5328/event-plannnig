@@ -1,13 +1,4 @@
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:1932360343.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:1809838855.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:3301251150.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:101135344.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:4282322555.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:650661724.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:79205282.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:4085271459.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:3641845852.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:982294048.
+
 import 'package:flutter/material.dart';
 
 import 'signup_screen.dart';
