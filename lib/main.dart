@@ -1,15 +1,14 @@
+
 import 'package:flutter/material.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
-// ignore: unused_import
-import 'package:myapp/hello_world.dart';
-import 'screens/chat_screen.dart';
-import 'screens/demo_ai_screen.dart';
-import 'screens/signup_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+
+import 'screens/splash_screen.dart';
 
 const apiKey = '--';
 
-void main() {
-  Gemini.init(apiKey: apiKey);
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
@@ -21,65 +20,45 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData( primaryColor: const Color(0xFFE6E6FA), // Light Lavender
-  colorScheme: const ColorScheme(
-    primary: Color.fromARGB(255, 152, 152, 242), // Light Lavender
-    secondary: Color.fromARGB(255, 251, 247, 242), // Peach
-    surface: Color.fromARGB(255, 248, 249, 251), // Cream
-    error: Color(0xFFB00020),
-    onPrimary: Colors.black,
-    onSecondary: Colors.black,
-    onSurface: Colors.black,
-    onError: Colors.white,
-    brightness: Brightness.light,
-  ),
-  scaffoldBackgroundColor: const Color.fromARGB(255, 254, 254, 249), // Cream
-  appBarTheme: const AppBarTheme(
-    backgroundColor: Color.fromARGB(255, 199, 199, 242), // Light Lavender
-    foregroundColor: Colors.black,
-  ),
-  textTheme: const TextTheme(
-    bodyLarge: TextStyle(color: Colors.black87),
-    bodyMedium: TextStyle(color: Colors.black87),
-    bodySmall: TextStyle(color: Colors.black87),
-    displayLarge: TextStyle(color: Colors.black87),
-    displayMedium: TextStyle(color: Colors.black87),
-    displaySmall: TextStyle(color: Colors.black87),
-    headlineLarge: TextStyle(color: Colors.black87),
-    headlineMedium: TextStyle(color: Colors.black87),
-    headlineSmall: TextStyle(color: Colors.black87),
-    labelLarge: TextStyle(color: Colors.black87),
-    labelMedium: TextStyle(color: Colors.black87),
-    labelSmall: TextStyle(color: Colors.black87),
-    titleLarge: TextStyle(color: Colors.black87),
-    titleMedium: TextStyle(color: Colors.black87),
-    titleSmall: TextStyle(color: Colors.black87),
-  ),
-  
-  elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDAB9)), // Peach
-      foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+      theme: // Suggested code may be subject to a license. Learn more: ~LicenseLog:4051710695.
+      ThemeData(
+    colorScheme: ColorScheme.light(
+      primary: const Color(0xFFBBDEFB), // Light Blue
+      secondary: const Color(0xFFA5D6A7), // Green
+      surface: const Color(0xFFF0F0F0), // Light Gray
+      onPrimary: const Color(0xFF1976D2), // Dark Blue (text on light blue)
+      onSecondary: const Color(0xFF000000), //Black
+      onSurface: const Color(0xFF000000), //Black
+      onError: const Color(0xFFBBDEFB), // white
+      error: Colors.red, //red
     ),
-  ),
-  
-  inputDecorationTheme: const InputDecorationTheme(
-    labelStyle: TextStyle(color: Colors.black87),
-    hintStyle: TextStyle(color: Colors.black54),
-    enabledBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.black26),
-    ),
-    focusedBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFFE6E6FA)), // Light Lavender
-    ),
-    border: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.black26),
-    ),
-    
-  ),
-        useMaterial3: true,
+    // You can customize other aspects of the theme here, such as:
+    textTheme: const TextTheme(
+      // Customize text styles here
+      bodyMedium: TextStyle(
+        color: Color(0xFF000000), // Example: Dark text color
       ),
-      home: ChatScreen(),
+        bodyLarge: TextStyle(
+          color: Color(0xFF000000), // Example: Dark text color
+        ),
+      bodySmall: TextStyle(
+        color: Color(0xFF000000), // Example: Dark text color
+      ),
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Color(0xFFBBDEFB), // Example: Light blue app bar
+      foregroundColor: Color(0xFF000000), // Example: Black text in the app bar
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFFBBDEFB),
+          foregroundColor: const Color(0xFF000000),
+        )
+    ),
+    useMaterial3: true,
+  ),
+
+      home: SplashScreen(),
     );
   }
 }
@@ -130,9 +109,9 @@ class _MyHomePageState extends State<MyHomePage> {
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
+        // Here we take the value from the MyHomePage object that was created by.
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title, style: TextStyle(color:Color(0xFFE6E6FA) ),),
+        title: Text(widget.title, style: TextStyle(color: Color(0xFFFFECB3)),),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
