@@ -17,7 +17,7 @@ class _NavDrawerState extends State<NavDrawer> {
   Widget build(BuildContext context) {
     final Map<int, Widget> screens = {
       0: ChatScreen(chatSessionId: ''), // Replace with actual screen widgets
-      1: Placeholder(),
+      1: ChatScreen(chatSessionId: '',),
       2: EventListScreen(),
       // 3 is for log out action, not a screen
     };
