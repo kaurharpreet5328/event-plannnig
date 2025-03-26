@@ -1,23 +1,21 @@
 class EventModel {
-  final String EventId;
+  final String eventId;
   final String title;
-  final String journalEntry;
+  final String eventEntry;
   final String createdAt;
 
-  var eventEntry;
-
   EventModel({
-    required this.EventId,
+    required this.eventId,
     required this.title,
-    required this.journalEntry,
+    required this.eventEntry,
     required this.createdAt,
   });
 
   factory EventModel.fromJson(Map<String, dynamic> json) {
     return EventModel(
-      EventId: json['id'],
+      eventId: json['_id'],
       title: json['title'],
-      journalEntry: json['journal_entry'],
+      eventEntry: json['event_entry'],
       createdAt: json['datetime'],
     );
   }

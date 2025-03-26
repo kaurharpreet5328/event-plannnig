@@ -42,9 +42,7 @@ class _EventChatScreenState extends State<EventChatScreen> {
         _scrollDebounceTimer!.cancel();
       }
       _scrollDebounceTimer = Timer(const Duration(milliseconds: 100), () {
-        final atBottom =
-            _scrollController.position.pixels >=
-            _scrollController.position.maxScrollExtent - 10;
+        final atBottom = _scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 10;
         if (atBottom != _isAtBottom) {
           setState(() {
             _isAtBottom = atBottom;
@@ -66,14 +64,7 @@ class _EventChatScreenState extends State<EventChatScreen> {
             SchemaType.object,
             requiredProperties: ["event", "response", "is_event"],
             properties: {
-              "event": Schema(
-                SchemaType.object,
-                requiredProperties: ["title", "event entry"],
-                properties: {
-                  "title": Schema(SchemaType.string),
-                  "event entry": Schema(SchemaType.string),
-                },
-              ),
+              "event": Schema(SchemaType.object, requiredProperties: ["title", "event entry"], properties: {"title": Schema(SchemaType.string), "event entry": Schema(SchemaType.string)}),
               "response": Schema(SchemaType.string),
               "is_event": Schema(SchemaType.boolean),
             },
@@ -94,11 +85,7 @@ class _EventChatScreenState extends State<EventChatScreen> {
   }
 
   void _scrollToBottom() {
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeOut,
-    );
+    _scrollController.animateTo(_scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
   }
 
   final List<ChatMessage> _messages = [];
@@ -108,11 +95,7 @@ class _EventChatScreenState extends State<EventChatScreen> {
     setState(() {
       _isLoading = true;
     });
-    var apiResponse = await ApiService.post('event', {
-      'userId': userId,
-      'title': title,
-      'event_entry': eventEntry,
-    });
+    var apiResponse = await ApiService.post('event', {'userId': userId, 'title': title, 'event_entry': eventEntry});
     if (apiResponse.statusCode >= 200 && apiResponse.statusCode < 300) {
       setState(() {
         _isLoading = false;
@@ -127,9 +110,7 @@ class _EventChatScreenState extends State<EventChatScreen> {
       setState(() {
         _isLoading = false;
       });
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(responseData["message"])));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(responseData["message"])));
     }
   }
 
@@ -152,10 +133,7 @@ class _EventChatScreenState extends State<EventChatScreen> {
     }
     await Future.delayed(Duration(seconds: 1));
 
-    final chat = model.startChat(
-      history:
-          _messages.map((m) => Content(m.sender, [TextPart(m.text)])).toList(),
-    );
+    final chat = model.startChat(history: _messages.map((m) => Content(m.sender, [TextPart(m.text)])).toList());
     final content = Content.text(text);
     final response = await chat.sendMessage(content);
 
@@ -177,8 +155,7 @@ class _EventChatScreenState extends State<EventChatScreen> {
           print('Response: ${data['response']}');
         }
 
-        final modelMessage =
-            '${data['response']}\n\nEvent: \n\n Title: $title\n Event Entry: $eventEntry';
+        final modelMessage = '${data['response']}\n\nEvent: \n\n Title: $title\n Event Entry: $eventEntry';
         setState(() {
           _isLoading = false;
           _messages.add(ChatMessage(text: modelMessage, sender: "model"));
@@ -250,26 +227,9 @@ class _EventChatScreenState extends State<EventChatScreen> {
                     Expanded(
                       child: Stack(
                         children: [
-                          ListView.builder(
-                            controller: _scrollController,
-                            itemCount: _messages.length,
-                            itemBuilder:
-                                (context, index) =>
-                                    ChatBubble(message: _messages[index]),
-                          ),
+                          ListView.builder(controller: _scrollController, itemCount: _messages.length, itemBuilder: (context, index) => ChatBubble(message: _messages[index])),
                           if (!_isAtBottom)
-                            Positioned(
-                              bottom: 10,
-                              left: 0,
-                              right: 0,
-                              child: Center(
-                                child: FloatingActionButton(
-                                  onPressed: _scrollToBottom,
-                                  mini: true,
-                                  child: const Icon(Icons.arrow_downward),
-                                ),
-                              ),
-                            ),
+                            Positioned(bottom: 10, left: 0, right: 0, child: Center(child: FloatingActionButton(onPressed: _scrollToBottom, mini: true, child: const Icon(Icons.arrow_downward)))),
                         ],
                       ),
                     ),
@@ -283,32 +243,11 @@ class _EventChatScreenState extends State<EventChatScreen> {
   Widget _buildTextComposer() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: Theme.of(context).colorScheme.onSurface,
-            width: 1.0,
-          ),
-        ),
-      ),
+      decoration: BoxDecoration(border: Border(top: BorderSide(color: Theme.of(context).colorScheme.onSurface, width: 1.0))),
       child: Row(
         children: [
-          Flexible(
-            child: TextField(
-              controller: _textController,
-              onSubmitted: _handleSubmitted,
-              decoration: const InputDecoration.collapsed(
-                hintText: 'Send a message',
-              ),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 4.0),
-            child: IconButton(
-              icon: const Icon(Icons.send),
-              onPressed: () => _handleSubmitted(_textController.text),
-            ),
-          ),
+          Flexible(child: TextField(controller: _textController, onSubmitted: _handleSubmitted, decoration: const InputDecoration.collapsed(hintText: 'Send a message'))),
+          Container(margin: const EdgeInsets.symmetric(horizontal: 4.0), child: IconButton(icon: const Icon(Icons.send), onPressed: () => _handleSubmitted(_textController.text))),
         ],
       ),
     );
@@ -336,13 +275,9 @@ class ChatBubble extends StatelessWidget {
   void _copyToClipboard(BuildContext context, String text) async {
     try {
       await Clipboard.setData(ClipboardData(text: text));
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Copied to clipboard")));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Copied to clipboard")));
     } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("Failed to copy: $e")));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Failed to copy: $e")));
     }
   }
 
@@ -353,8 +288,7 @@ class ChatBubble extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
       child: Row(
-        mainAxisAlignment:
-            isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -362,28 +296,15 @@ class ChatBubble extends StatelessWidget {
             children: [
               Flexible(
                 child: Container(
-                  constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.7,
-                  ),
+                  constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
                   padding: const EdgeInsets.all(10.0),
-                  decoration: BoxDecoration(
-                    color:
-                        isUser
-                            ? Theme.of(context).colorScheme.primary
-                            : Theme.of(context).colorScheme.secondary,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
+                  decoration: BoxDecoration(color: isUser ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.secondary, borderRadius: BorderRadius.circular(10.0)),
                   child: SelectableText(message.text),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
-                child: IconButton(
-                  icon: const Icon(Icons.copy, size: 16),
-                  color: Theme.of(context).colorScheme.primary,
-                  onPressed: () => _copyToClipboard(context, message.text),
-                  tooltip: "Copy",
-                ),
+                child: IconButton(icon: const Icon(Icons.copy, size: 16), color: Theme.of(context).colorScheme.primary, onPressed: () => _copyToClipboard(context, message.text), tooltip: "Copy"),
               ),
             ],
           ),

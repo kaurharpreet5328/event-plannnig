@@ -110,62 +110,62 @@ class _EventListScreenState extends State<EventListScreen> {
       ),
       drawer: const NavDrawer(selectedIndex: 2),
       body:
-          _isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : ListView.builder(
-                itemCount: _eventEntries.length,
-                itemBuilder: (context, index) {
-                  final event = _eventEntries[index];
-                  DateTime dateTime = DateTime.parse(event.createdAt).toLocal();
-                  var format = DateFormat('dd MMM, yyyy hh:MM a');
-                  String formattedDate = format.format(
-                    dateTime.toUtc().add(const Duration(hours: -8)),
-                  );
-                  return ListTile(
-                    title: Text(event.title),
-                    subtitle: Text(formattedDate),
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder:
-                              (context) => ViewEventScreen(
-                                title: event.title,
-                                eventEntry: event.eventEntry,
-                                date: formattedDate,
-                              ),
+      _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : ListView.builder(
+        itemCount: _eventEntries.length,
+        itemBuilder: (context, index) {
+          final event = _eventEntries[index];
+          DateTime dateTime = DateTime.parse(event.createdAt).toLocal();
+          var format = DateFormat('dd MMM, yyyy hh:MM a');
+          String formattedDate = format.format(
+            dateTime.toUtc().add(const Duration(hours: -8)),
+          );
+          return ListTile(
+            title: Text(event.title),
+            subtitle: Text(formattedDate),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder:
+                      (context) => ViewEventScreen(
+                    title: event.title,
+                    eventEntry: event.eventEntry,
+                    date: formattedDate,
+                  ),
+                ),
+              );
+            },
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.edit),
+                  onPressed: () {
+                    // Handle edit action
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder:
+                            (context) => EventEditScreen(
+                          eventId: event.eventId,
+                          title: event.title,
+                          eventEntry: event.eventEntry,
                         ),
-                      );
-                    },
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () {
-                            // Handle edit action
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder:
-                                    (context) => EventEditScreen(
-                                      eventId: event.EventId,
-                                      title: event.title,
-                                      eventEntry: event.eventEntry,
-                                    ),
-                              ),
-                            );
-                          },
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.delete),
-                          onPressed: () {
-                            _deleteEvent(event.EventId);
-                          },
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                      ),
+                    );
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(Icons.delete),
+                  onPressed: () {
+                    _deleteEvent(event.eventId);
+                  },
+                ),
+              ],
+            ),
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(

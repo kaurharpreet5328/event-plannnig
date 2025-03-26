@@ -5,12 +5,7 @@ class ViewEventScreen extends StatefulWidget {
   final String eventEntry;
   final String date;
 
-  const ViewEventScreen({
-    super.key,
-    required this.title,
-    required this.eventEntry,
-    required this.date,
-  });
+  const ViewEventScreen({super.key, required this.title, required this.eventEntry, required this.date});
 
   @override
   State<ViewEventScreen> createState() => _ViewEventScreenState();
@@ -24,17 +19,10 @@ class _ViewEventScreenState extends State<ViewEventScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          
           children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-              widget.title,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-            ),
+            Align(alignment: Alignment.topLeft, child: Text(widget.title, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold))),
             const SizedBox(height: 8),
-            Align(alignment: Alignment.topLeft,child: Text(widget.date.toString(), style: const TextStyle(fontSize: 16))),
+            Align(alignment: Alignment.topLeft, child: Text(widget.date.toString(), style: const TextStyle(fontSize: 16))),
             const SizedBox(height: 16),
             Expanded(child: SingleChildScrollView(child: Text(widget.eventEntry, style: const TextStyle(fontSize: 18)))),
           ],

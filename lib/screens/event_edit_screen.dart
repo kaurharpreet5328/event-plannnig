@@ -7,32 +7,23 @@ import '../services/api_service.dart';
 import 'events_list_screen.dart';
 
 class EventEditScreen extends StatefulWidget {
-
   final String eventId;
   final String title;
   final String eventEntry;
 
-  const EventEditScreen({
-    super.key,
-    required this.eventId,
-    required this.title,
-    required this.eventEntry,
-  });
+  const EventEditScreen({super.key, required this.eventId, required this.title, required this.eventEntry});
 
   @override
   State<EventEditScreen> createState() => _EventEditScreenState();
 }
 
 class _EventEditScreenState extends State<EventEditScreen> {
-
   late String title;
   late String eventEntry;
   late String date;
 
-  final TextEditingController _bodyTextEditingController =
-      TextEditingController();
-  final TextEditingController _titleTextEditingController =
-      TextEditingController();
+  final TextEditingController _bodyTextEditingController = TextEditingController();
+  final TextEditingController _titleTextEditingController = TextEditingController();
   late final String userId;
   bool _isLoading = false;
 
@@ -65,19 +56,13 @@ class _EventEditScreenState extends State<EventEditScreen> {
     final title = _titleTextEditingController.text;
     final body = _bodyTextEditingController.text;
     if (title.isEmpty || body.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter a title and body')),
-      );
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter a title and body')));
       return;
     }
     setState(() {
       _isLoading = true;
     });
-    var apiResponse = await ApiService.put('event/${widget.eventId}', {
-      'userId': userId,
-      'title': title,
-      'event_entry': body,
-    });
+    var apiResponse = await ApiService.put('event/${widget.eventId}', {'userId': userId, 'title': title, 'event_entry': body});
     if (apiResponse.statusCode >= 200 && apiResponse.statusCode < 300) {
       setState(() {
         _isLoading = false;
@@ -92,9 +77,7 @@ class _EventEditScreenState extends State<EventEditScreen> {
       setState(() {
         _isLoading = false;
       });
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(responseData["message"])));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(responseData["message"])));
     }
   }
 
@@ -121,20 +104,14 @@ class _EventEditScreenState extends State<EventEditScreen> {
                     TextField(
                       controller: _titleTextEditingController,
                       style: const TextStyle(fontWeight: FontWeight.bold),
-                      decoration: const InputDecoration(
-                        hintText: 'Title',
-                        border: InputBorder.none,
-                      ),
+                      decoration: const InputDecoration(hintText: 'Title', border: InputBorder.none),
                     ),
                     Expanded(
                       child: TextField(
                         controller: _bodyTextEditingController,
                         maxLines: null,
                         expands: true,
-                        decoration: const InputDecoration(
-                          hintText: 'Start planning your event...',
-                          border: InputBorder.none,
-                        ),
+                        decoration: const InputDecoration(hintText: 'Start planning your event...', border: InputBorder.none),
                       ),
                     ),
                   ],
